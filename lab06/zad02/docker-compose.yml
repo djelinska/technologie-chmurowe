@@ -1,0 +1,25 @@
+services:
+  web:
+    build: .
+    container_name: web
+    networks:
+      - my_network
+    ports:
+      - '8080:3000'
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=27017
+
+  db:
+    image: mongo:latest
+    container_name: db
+    networks:
+      - my_network
+    ports:
+      - '27017:27017'
+
+networks:
+  my_network:
+    driver: bridge
